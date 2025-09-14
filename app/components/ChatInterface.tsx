@@ -3,6 +3,8 @@
 import React, { useState, useRef, useEffect, forwardRef } from 'react'
 import { Loader2 } from 'lucide-react'
 import ChatInput, { ChatInputRef } from './ChatInput'
+import InterestModal from './InterestModal'
+import { getSupabaseClient } from '@/lib/supabase'
 
 interface Message {
   id: string
@@ -18,6 +20,7 @@ interface ChatInterfaceProps {
 const ChatInterface = ({ onFirstMessage }: ChatInterfaceProps, ref: any) => {
   const [messages, setMessages] = useState<Message[]>([])
   const [isLoading, setIsLoading] = useState(false)
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<ChatInputRef>(null)
 
@@ -40,6 +43,21 @@ const ChatInterface = ({ onFirstMessage }: ChatInterfaceProps, ref: any) => {
     // Hide welcome message on first interaction
     if (messages.length === 0) {
       onFirstMessage()
+      
+      // Authenticate user anonymously on first message
+      try {
+        const supabase = getSupabaseClient()
+        const { data: authData, error: authError } = await supabase.auth.signInAnonymously()
+        if (authError) {
+          console.error('Anonymous auth failed:', authError)
+          // Continue anyway - we can still chat without lead capture
+        } else {
+          console.log('Anonymous user authenticated:', authData.user?.id)
+        }
+      } catch (error) {
+        console.error('Authentication error:', error)
+        // Continue anyway
+      }
     }
 
     // Add user message
@@ -147,30 +165,51 @@ const ChatInterface = ({ onFirstMessage }: ChatInterfaceProps, ref: any) => {
       {/* Messages Area */}
       <div className="flex-1 overflow-y-auto px-4 pb-32">
         <div className="max-w-3xl mx-auto px-0 sm:px-0 lg:px-3 pt-20">
-          {messages.map((message) => (
-            <div
-              key={message.id}
-              className={`mb-6 flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
-            >
-              <div
-                className={`px-4 py-3 rounded-2xl backdrop-blur-md ${
-                  message.role === 'user'
-                    ? 'bg-zinc-900/80 text-white border border-white/10'
-                    : 'bg-white/40 text-gray-900 border border-gray-200/50'
-                }`}
-              >
-                <div className="whitespace-pre-wrap break-words">
-                  {message.content}
-                  {message.role === 'assistant' && isLoading && message.content === '' && (
-                    <div className="flex items-center space-x-2">
-                      <Loader2 className="w-4 h-4 animate-spin" />
-                      <span className="text-sm text-gray-500">Thinking...</span>
+          {messages.map((message, index) => {
+            const isLastMessage = index === messages.length - 1
+            const showInterestButton = message.role === 'assistant' && 
+                                     message.content && 
+                                     message.content.trim().length > 0 && 
+                                     (!isLoading || !isLastMessage)
+            
+            return (
+              <div key={message.id}>
+                <div
+                  className={`mb-4 flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
+                >
+                  <div
+                    className={`px-4 py-3 rounded-2xl backdrop-blur-md ${
+                      message.role === 'user'
+                        ? 'bg-zinc-900/80 text-white border border-white/10'
+                        : 'bg-white/40 text-gray-900 border border-gray-200/50'
+                    }`}
+                  >
+                    <div className="whitespace-pre-wrap break-words">
+                      {message.content}
+                      {message.role === 'assistant' && isLoading && message.content === '' && (
+                        <div className="flex items-center space-x-2">
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                          <span className="text-sm text-gray-500">Thinking...</span>
+                        </div>
+                      )}
                     </div>
-                  )}
+                  </div>
                 </div>
+                
+                {/* Interest Button - Show after completed assistant messages */}
+                {showInterestButton && (
+                  <div className="mb-6 flex justify-start">
+                    <button
+                      onClick={() => setIsModalOpen(true)}
+                      className="px-4 py-2 bg-gradient-to-r from-purple-500 to-pink-500 text-white rounded-full text-sm font-medium hover:from-purple-600 hover:to-pink-600 transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105"
+                    >
+                      Interested in hearing more?
+                    </button>
+                  </div>
+                )}
               </div>
-            </div>
-          ))}
+            )
+          })}
           <div ref={messagesEndRef} />
         </div>
       </div>
@@ -185,6 +224,12 @@ const ChatInterface = ({ onFirstMessage }: ChatInterfaceProps, ref: any) => {
           />
         </div>
       </div>
+
+      {/* Interest Modal */}
+      <InterestModal 
+        isOpen={isModalOpen} 
+        onClose={() => setIsModalOpen(false)} 
+      />
     </div>
   )
 }
