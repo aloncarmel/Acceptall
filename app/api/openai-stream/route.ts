@@ -147,14 +147,17 @@ export async function POST(request: NextRequest) {
         try {
           for await (const chunk of stream) {
             // Debug: Log the chunk structure to understand the format
-            //console.log('Streaming chunk:', chunk)
+            console.log('Streaming chunk:', chunk)
             
-            // Handle responses API streaming format - try different possible properties
-            const content = (chunk as any).output_text_delta || 
-                           (chunk as any).output_delta || 
-                           (chunk as any).delta || 
-                           (chunk as any).text || 
-                           ''
+            // Handle responses API streaming format - only process delta chunks
+            let content = ''
+            
+            // Only process incremental delta chunks, ignore final complete text
+            if ((chunk as any).type === 'response.output_text.delta' && (chunk as any).delta) {
+              content = (chunk as any).delta
+            }
+            
+            console.log('Chunk type:', (chunk as any).type, 'Extracted content:', content)
             
             if (content) {
               // Format as Server-Sent Events
