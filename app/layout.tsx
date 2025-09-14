@@ -21,7 +21,7 @@ export const metadata: Metadata = {
     'seed funding',
     'early stage investment'
   ],
-  authors: [{ name: 'Accept All Fund', url: 'https://acceptall.fund' }],
+  authors: [{ name: 'Accept All Fund', url: 'https://acceptall.vc' }],
   creator: 'Accept All Fund',
   publisher: 'Accept All Fund',
   formatDetection: {
@@ -29,7 +29,7 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://acceptall.fund'),
+  metadataBase: new URL('https://acceptall.vc'),
   alternates: {
     canonical: '/',
     languages: {
@@ -59,7 +59,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://acceptall.fund',
+    url: 'https://acceptall.vc',
     title: 'Accept All Fund - Micro-VC for Indie Entrepreneurs',
     description: 'We back solo founders, vibe coders, and indie hackers using AI to ship products, SaaS, apps, and games. $50k–$100k checks. No board seats. No drama.',
     siteName: 'Accept All Fund',
@@ -114,9 +114,9 @@ export default function RootLayout({
     "name": "Accept All Fund",
     "alternateName": "AcceptAll Fund",
     "description": "Micro-VC backing solo founders, vibe coders, and indie hackers using AI to ship products, SaaS, apps, and games.",
-    "url": "https://acceptall.fund",
-    "logo": "https://acceptall.fund/favicon.svg",
-    "image": "https://acceptall.fund/sociallimage.png",
+    "url": "https://acceptall.vc",
+    "logo": "https://acceptall.vc/favicon.svg",
+    "image": "https://acceptall.vc/sociallimage.png",
     "foundingDate": "2024",
     "sameAs": [
       "https://twitter.com/acceptallfund",
@@ -125,7 +125,7 @@ export default function RootLayout({
     "contactPoint": {
       "@type": "ContactPoint",
       "contactType": "customer service",
-      "url": "https://acceptall.fund"
+      "url": "https://acceptall.vc"
     },
     "brand": {
       "@type": "Brand",
@@ -137,7 +137,7 @@ export default function RootLayout({
     "@context": "https://schema.org",
     "@type": "WebSite",
     "name": "Accept All Fund",
-    "url": "https://acceptall.fund",
+    "url": "https://acceptall.vc",
     "description": "Micro-VC for indie entrepreneurs. We back solo founders, vibe coders, and indie hackers using AI.",
     "publisher": {
       "@type": "Organization",
