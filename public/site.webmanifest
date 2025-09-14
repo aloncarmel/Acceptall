@@ -1,0 +1,22 @@
+{
+  "name": "Accept All Fund - Micro-VC for Indie Entrepreneurs",
+  "short_name": "AcceptAll Fund",
+  "description": "We back solo founders, vibe coders, and indie hackers using AI to ship products, SaaS, apps, and games.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ],
+  "lang": "en",
+  "dir": "ltr",
+  "scope": "/",
+  "categories": ["business", "finance", "productivity"]
+}

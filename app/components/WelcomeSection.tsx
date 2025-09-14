@@ -32,7 +32,7 @@ export default function WelcomeSection({ isVisible, onQuestionClick, onMessageSu
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 mt-[100px] lg:mt-[0px]">
+    <div className="min-h-screen flex items-center justify-center px-4">
       <div className="max-w-3xl mx-auto text-center">
         <div className="transition-all duration-1000 opacity-100 translate-y-0">
           <h1 className="text-5xl md:text-7xl font-bold mb-6">

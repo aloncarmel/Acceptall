@@ -35,7 +35,7 @@ export default function Home() {
   return (
     <main className="min-h-screen">
       {/* Navigation */}
-      <nav className="fixed top-0 w-full z-50">
+      <nav className="sticky top-0 w-full z-50 bg-white">
         <div className="max-w-3xl mx-auto px-3 sm:px-3 lg:px-3">
           <div className="flex justify-between items-center py-4">
             <a href="/" className="flex items-center space-x-2">

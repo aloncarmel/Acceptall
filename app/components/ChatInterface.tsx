@@ -153,7 +153,7 @@ const ChatInterface = ({ onFirstMessage }: ChatInterfaceProps, ref: any) => {
               className={`mb-6 flex ${message.role === 'user' ? 'justify-end' : 'justify-start'}`}
             >
               <div
-                className={`max-w-[80%] px-4 py-3 rounded-2xl backdrop-blur-md ${
+                className={`px-4 py-3 rounded-2xl backdrop-blur-md ${
                   message.role === 'user'
                     ? 'bg-zinc-900/80 text-white border border-white/10'
                     : 'bg-white/40 text-gray-900 border border-gray-200/50'
