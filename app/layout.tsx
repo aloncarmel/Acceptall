@@ -7,6 +7,9 @@ export const metadata: Metadata = {
   keywords: 'micro vc, indie hackers, solo founders, venture capital, startup funding, AI entrepreneurs',
   authors: [{ name: 'Accept All Fund' }],
   metadataBase: new URL('https://acceptall.fund'),
+  icons: {
+    icon: '/favicon.svg',
+  },
   openGraph: {
     title: 'Accept All Fund - Micro-VC for Indie Entrepreneurs',
     description: 'We back solo founders, vibe coders, and indie hackers using AI to ship products, SaaS, apps, and games.',
