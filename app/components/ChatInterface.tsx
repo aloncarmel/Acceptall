@@ -238,9 +238,9 @@ export default forwardRef(ChatInterface)
 
 // Predefined questions that users can click
 export const PREDEFINED_QUESTIONS = [
+  "Tell me everything you know about Accept All Fund, including manifesto, investment size, board seats, founders and expectations",
   "What kind of founders or startups do you usually back?",
   "How big are the checks you write, and what do you expect in return?",
   "Do you take board seats or want control over the company?",
   "Can you explain your manifesto in plain English — what makes Accept All different from a normal VC?",
-  "Why is now the right time to raise money from a fund like yours?"
 ]
